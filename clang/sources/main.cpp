@@ -23,6 +23,8 @@ void third() {
 int main() {
     sem_init(&s1, 0, 0);
     sem_init(&s2, 0, 0);
+
+    auto start = std::chrono::system_clock::now();
     for (int i = 0; i < 100; i++) {
         std::thread t1(first);
         std::thread t2(second);
@@ -33,5 +35,9 @@ int main() {
         t3.join();
         std::cout << '\n';
     }
+    std::chrono::duration<double> dur =
+        std::chrono::system_clock::now() - start;
+    std::cout << "Duration: " << dur.count() << " seconds" << '\n';
+
     return 0;
 }
